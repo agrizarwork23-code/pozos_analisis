@@ -143,48 +143,47 @@
         layer_OpenStreetMap_0;
         map.addLayer(layer_OpenStreetMap_0);
 
-
 function pop_pozos(feature, layer) {
-    var popupContent = '<div style="background-color: #ffffff; padding: 0px; margin: -1px; min-width: 400px; font-family: \'Segoe UI\', Arial, sans-serif; border: 1px solid #2c3e50;">\
+    var popupContent = '<div style="background-color: #ffffff; padding: 0px; margin: -1px; width: 300px; font-family: \'Segoe UI\', Arial, sans-serif; border: 1px solid #2c3e50; border-radius: 4px; overflow: hidden;">\
         \
         <div style="background-color: #2c3e50; color: #ffffff; padding: 12px; text-align: center;">\
-            <span style="font-size: 11px; text-transform: uppercase; opacity: 0.8;">Ficha Técnica Completa</span><br>\
+            <span style="font-size: 11px; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px;">Ficha Técnica Completa</span><br>\
             <b style="font-size: 18px; text-transform: uppercase;">' + (feature.properties['nombre'] !== null ? feature.properties['nombre'] : 'Sin nombre') + '</b>\
         </div>\
         \
-        <div style="padding: 15px;">\
-            <table style="width: 100%; font-size: 12px; color: #34495e; border-collapse: collapse;">\
+        <div style="padding: 12px;">\
+            <table style="width: 100%; font-size: 14px; color: #34495e; border-collapse: collapse;">\
                 \
-                <tr><td colspan="2" style="padding: 5px 0; color: #7f8c8d; font-weight: bold; font-size: 10px; text-transform: uppercase; border-bottom: 1px solid #eee;">General e Ingeniería</td></tr>\
-                <tr><td style="padding: 4px 0;">📍 Ubicación</td><td style="text-align: right; font-weight: bold;">' + (feature.properties['ubicacion'] !== null ? feature.properties['ubicacion'] : '-') + '</td></tr>\
-                <tr><td style="padding: 4px 0;">📜 Concesión</td><td style="text-align: right;">' + (feature.properties['concesion'] !== null ? feature.properties['concesion'] : '-') + '</td></tr>\
-                <tr><td style="padding: 4px 0;">💧 Flujo actual</td><td style="text-align: right; font-weight: bold; color: #27ae60;">' + (feature.properties['flujo'] !== null ? feature.properties['flujo'] : '-') + '</td></tr>\
-                <tr><td style="padding: 4px 0;">💰 Tarifa</td><td style="text-align: right; font-weight: bold; color: #27ae60;">' + (feature.properties['tarifa'] !== null ? feature.properties['tarifa'] : '-') + '</td></tr>\
-                <tr style="background-color: #f1f9f1;"><td style="padding: 4px 8px;">📊 m³/h</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['m3/h'] !== null ? feature.properties['m3/h'] : '-') + '</td></tr>\
-                <tr style="background-color: #f1f9f1;"><td style="padding: 4px 8px;">📊 m³/24h</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['m3/24h'] !== null ? feature.properties['m3/24h'] : '-') + '</td></tr>\
-                <tr style="background-color: #f1f9f1;"><td style="padding: 4px 8px;">📊 m³/año</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['m3/año'] !== null ? feature.properties['m3/año'] : '-') + '</td></tr>\
-                <tr><td style="padding: 4px 0;">🚀 Potencia Bomba</td><td style="text-align: right;">' + (feature.properties['potencia_omba_hp'] !== null ? feature.properties['potencia_omba_hp'] + ' HP' : '-') + '</td></tr>\
+                <tr><td colspan="2" style="padding: 5px 0; color: #7f8c8d; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 1px solid #eee;">General e Ingeniería</td></tr>\
+                <tr><td style="padding: 6px 0;">📍 Ubicación</td><td style="text-align: right; font-weight: bold;">' + (feature.properties['ubicacion'] !== null ? feature.properties['ubicacion'] : '-') + '</td></tr>\
+                <tr><td style="padding: 6px 0;">📜 Concesión</td><td style="text-align: right;">' + (feature.properties['concesion'] !== null ? feature.properties['concesion'] : '-') + '</td></tr>\
+                <tr><td style="padding: 6px 0;">💧 Flujo actual</td><td style="text-align: right; font-weight: bold; color: #27ae60;">' + (feature.properties['flujo'] !== null ? feature.properties['flujo'] : '-') + '</td></tr>\
+                <tr><td style="padding: 6px 0;">💰 Tarifa</td><td style="text-align: right; font-weight: bold; color: #27ae60;">' + (feature.properties['tarifa'] !== null ? feature.properties['tarifa'] : '-') + '</td></tr>\
+                <tr style="background-color: #f1f9f1;"><td style="padding: 6px 8px;">📊 m³/h</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['m3/h'] !== null ? feature.properties['m3/h'] : '-') + '</td></tr>\
+                <tr style="background-color: #f1f9f1;"><td style="padding: 6px 8px;">📊 m³/24h</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['m3/24h'] !== null ? feature.properties['m3/24h'] : '-') + '</td></tr>\
+                <tr style="background-color: #f1f9f1;"><td style="padding: 6px 8px;">📊 m³/año</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['m3/año'] !== null ? feature.properties['m3/año'] : '-') + '</td></tr>\
+                <tr><td style="padding: 6px 0;">🚀 Potencia Bomba</td><td style="text-align: right;">' + (feature.properties['potencia_omba_hp'] !== null ? feature.properties['potencia_omba_hp'] + ' HP' : '-') + '</td></tr>\
 \
-                <tr><td colspan="2" style="padding: 15px 0 5px 0; color: #2980b9; font-weight: bold; font-size: 10px; text-transform: uppercase; border-bottom: 1px solid #2980b9;">Análisis de Agua (' + (feature.properties['unidades'] !== null ? feature.properties['unidades'] : '-') + ')</td></tr>\
-                <tr style="background-color: #f9f9f9;"><td style="padding: 5px 8px;"><b>pH</b></td><td style="text-align: right; padding: 5px 8px; font-weight: bold;">' + (feature.properties['ph'] !== null ? feature.properties['ph'] : '-') + '</td></tr>\
-                <tr style="background-color: #e3f2fd;"><td style="padding: 5px 8px;"><b>CE (µS/cm)</b></td><td style="text-align: right; padding: 5px 8px; font-weight: bold;">' + (feature.properties['ce'] !== null ? feature.properties['ce'] : '-') + '</td></tr>\
+                <tr><td colspan="2" style="padding: 15px 0 5px 0; color: #2980b9; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #2980b9;">Análisis de Agua (' + (feature.properties['unidades'] !== null ? feature.properties['unidades'] : '-') + ')</td></tr>\
+                <tr style="background-color: #f9f9f9;"><td style="padding: 7px 8px;"><b>pH</b></td><td style="text-align: right; padding: 7px 8px; font-weight: bold;">' + (feature.properties['ph'] !== null ? feature.properties['ph'] : '-') + '</td></tr>\
+                <tr style="background-color: #e3f2fd;"><td style="padding: 7px 8px;"><b>CE (µS/cm)</b></td><td style="text-align: right; padding: 7px 8px; font-weight: bold;">' + (feature.properties['ce'] !== null ? feature.properties['ce'] : '-') + '</td></tr>\
                 \
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 4px 8px;">Amonio (NH4)</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['amonio_nh4'] !== null ? feature.properties['amonio_nh4'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 4px 8px;">Potasio (K)</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['potasio_k'] !== null ? feature.properties['potasio_k'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 4px 8px;">Sodio (Na)</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['sodio_na'] !== null ? feature.properties['sodio_na'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 4px 8px;">Calcio (Ca)</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['calcio_ca'] !== null ? feature.properties['calcio_ca'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 4px 8px;">Magnesio (Mg)</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['magnesio_mg'] !== null ? feature.properties['magnesio_mg'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 4px 8px;">Cloro (Cl)</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['cloro_cl'] !== null ? feature.properties['cloro_cl'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 4px 8px;">Azufre (S)</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['azufre_s'] !== null ? feature.properties['azufre_s'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 4px 8px;">Bicarbonatos (HCO3)</td><td style="text-align: right; padding: 4px 8px;">' + (feature.properties['bicarbonatos_hco3'] !== null ? feature.properties['bicarbonatos_hco3'] : '-') + '</td></tr>\
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Amonio (NH4)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['amonio_nh4'] !== null ? feature.properties['amonio_nh4'] : '-') + '</td></tr>\
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Potasio (K)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['potasio_k'] !== null ? feature.properties['potasio_k'] : '-') + '</td></tr>\
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Sodio (Na)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['sodio_na'] !== null ? feature.properties['sodio_na'] : '-') + '</td></tr>\
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Calcio (Ca)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['calcio_ca'] !== null ? feature.properties['calcio_ca'] : '-') + '</td></tr>\
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Magnesio (Mg)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['magnesio_mg'] !== null ? feature.properties['magnesio_mg'] : '-') + '</td></tr>\
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Cloro (Cl)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['cloro_cl'] !== null ? feature.properties['cloro_cl'] : '-') + '</td></tr>\
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Azufre (S)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['azufre_s'] !== null ? feature.properties['azufre_s'] : '-') + '</td></tr>\
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Bicarbonatos (HCO3)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['bicarbonatos_hco3'] !== null ? feature.properties['bicarbonatos_hco3'] : '-') + '</td></tr>\
             </table>\
         </div>\
         \
-        <div style="background-color: #2c3e50; color: #ffffff; padding: 8px; font-size: 10px; text-align: center;">\
-            Datos Sincronizados - Supabase DB\
+        <div style="background-color: #2c3e50; color: #ffffff; padding: 8px; font-size: 10px; text-align: center; opacity: 0.9;">\
+            Sincronizado Supabase DB\
         </div>\
     </div>';
-    layer.bindPopup(popupContent, {maxHeight: 600, minWidth: 400});
+    layer.bindPopup(popupContent, {maxHeight: 800, maxWidth: 300, minWidth: 300});
 }
 
 
