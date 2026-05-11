@@ -197,33 +197,3 @@
         .leaflet-control-layers-expanded .leaflet-control-layers-toggle {
             display: none;
         }
-
-
-
-/* --- CÓDIGO DE PERSONALIZACIÓN DE FICHA --- */
-
-.leaflet-popup-content-wrapper {
-    padding: 0;
-    overflow: hidden;
-    border-radius: 4px;
-}
-
-.leaflet-popup-content {
-    margin: 0 !important; /* Quita el margen blanco típico de Leaflet */
-    width: 400px !important; /* Ajusta el ancho para que quepa la tabla química */
-    line-height: 1.2;
-}
-
-.leaflet-popup-content table {
-    margin: 0;
-}
-
-.leaflet-popup-tip-container {
-    display: none; /* Opcional: oculta la flechita del popup para un look más limpio */
-}
-
-/* Evita que aparezcan barras de desplazamiento innecesarias */
-.leaflet-popup-scrolled {
-    border: none !important;
-    padding: 0 !important;
-}
