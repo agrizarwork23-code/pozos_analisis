@@ -140,44 +140,74 @@
 
 
 function pop_pozos_db_1(feature, layer) {
-    var popupContent = '<div style="background-color: #ffffff; padding: 0px; margin: -1px; width: 280px; font-family: \'Segoe UI\', Arial, sans-serif; border: 1px solid #2c3e50; border-radius: 4px; overflow: hidden;">\
+    // Función de limpieza profesional: evita 'undefined', 'null' y formatea unidades
+    var clean = function(val, unit = '', prefix = '') {
+        if (val === null || val === undefined || val === '' || val === 'NULL') {
+            return '<span style="color: #95a5a6; font-weight: normal;">-</span>';
+        }
+        return '<b>' + prefix + val + '</b> <span style="font-size: 11px; font-weight: normal;">' + unit + '</span>';
+    };
+
+    var props = feature.properties;
+
+    var popupContent = '<div style="background-color: #ffffff; padding: 0px; margin: -1px; width: 360px; font-family: \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif; border: 1px solid #2c3e50; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">\
         \
-        <div style="background-color: #2c3e50; color: #ffffff; padding: 12px; text-align: center;">\
-            <span style="font-size: 11px; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px;">Ficha Técnica Completa</span><br>\
-            <b style="font-size: 18px; text-transform: uppercase;">' + (feature.properties['nombre'] !== null ? feature.properties['nombre'] : 'Sin nombre') + '</b>\
+        <!-- ENCABEZADO TÉCNICO -->\
+        <div style="background-color: #2c3e50; color: #ffffff; padding: 18px; text-align: left; border-bottom: 5px solid #3498db;">\
+            <span style="font-size: 10px; text-transform: uppercase; opacity: 0.7; letter-spacing: 2px; font-weight: 700;">FICHA TÉCNICA</span><br>\
+            <b style="font-size: 22px; letter-spacing: 0.5px; color: #ecf0f1;">' + (props['nombre'] ? props['nombre'].toUpperCase() : 'POZO SIN REGISTRO') + '</b>\
         </div>\
         \
-        <div style="padding: 12px;">\
-            <table style="width: 100%; font-size: 14px; color: #34495e; border-collapse: collapse;">\
+        <div style="padding: 15px; max-height: 520px; overflow-y: auto; background-color: #fdfdfd;">\
+            <table style="width: 100%; font-size: 13px; color: #2c3e50; border-collapse: collapse;">\
                 \
-                <tr><td colspan="2" style="padding: 5px 0; color: #7f8c8d; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 1px solid #eee;">General</td></tr>\
-                <tr><td style="padding: 6px 0;">📍 Ubicación</td><td style="text-align: right; font-weight: bold;">' + (feature.properties['ubicacion'] !== null ? feature.properties['ubicacion'] : '-') + '</td></tr>\
-                <tr><td style="padding: 6px 0;">📜 Concesión</td><td style="text-align: right;">' + (feature.properties['concesion'] !== null ? feature.properties['concesion'] : '-') + '</td></tr>\
-                <tr><td style="padding: 6px 0;">💧 Flujo actual</td><td style="text-align: right; font-weight: bold; color: #27ae60;">' + (feature.properties['flujo'] !== null ? feature.properties['flujo'] : '-') + '</td></tr>\
+                <!-- SECCIÓN: UBICACIÓN Y LEGAL -->\
+                <tr><td colspan="2" style="padding: 8px 0; color: #2980b9; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #3498db;">📍 Información General y Legal</td></tr>\
+                <tr><td style="padding: 7px 0;">Ubicación</td><td style="text-align: right;">' + clean(props['ubicacion']) + '</td></tr>\
+                <tr><td style="padding: 5px 0;">Título Concesión</td><td style="text-align: right;">' + clean(props['concesion']) + '</td></tr>\
+                <tr><td style="padding: 5px 0;">Vencimiento</td><td style="text-align: right; color: #e67e22;">' + clean(props['vencimiento']) + '</td></tr>\
+                <tr><td style="padding: 5px 0;">Núm. Medidor</td><td style="text-align: right;">' + clean(props['numero_medidor']) + '</td></tr>\
                 \
-                <tr style="background-color: #f1f9f1;"><td style="padding: 6px 8px;">📊 m³/h</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['m3/h'] !== null ? feature.properties['m3/h'] : '-') + '</td></tr>\
-                <tr style="background-color: #f1f9f1;"><td style="padding: 6px 8px;">📊 m³/24h</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['m3/24h'] !== null ? feature.properties['m3/24h'] : '-') + '</td></tr>\
-                <tr><td style="padding: 6px 0;">🚀 Potencia Bomba</td><td style="text-align: right;">' + (feature.properties['potencia_omba_hp'] !== null ? feature.properties['potencia_omba_hp'] + ' HP' : '-') + '</td></tr>\
+                <!-- SECCIÓN: OPERACIÓN Y FLUJOS -->\
+                <tr><td colspan="2" style="padding: 18px 0 8px 0; color: #27ae60; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #27ae60;">💧 Régimen de Extracción</td></tr>\
+                <tr><td style="padding: 8px 0; font-size: 14px;">Flujo Operativo</td><td style="text-align: right; color: #27ae60; font-size: 16px;">' + clean(props['flujo'], 'L/min') + '</td></tr>\
+                <tr style="background-color: #f1f9f1;"><td style="padding: 5px 8px;">Volumen (M³)</td><td style="text-align: right; padding: 5px 8px;">' + clean(props['m3']) + '</td></tr>\
+                <tr style="background-color: #f1f9f1;"><td style="padding: 5px 8px;">M³ por Hora</td><td style="text-align: right; padding: 5px 8px;">' + clean(props['m3/h']) + '</td></tr>\
+                <tr style="background-color: #f1f9f1;"><td style="padding: 5px 8px;">M³ por 24 Horas</td><td style="text-align: right; padding: 5px 8px;">' + clean(props['m3/24h']) + '</td></tr>\
+                <tr style="background-color: #f1f9f1;"><td style="padding: 5px 8px;">M³ Anual Autorizado</td><td style="text-align: right; padding: 5px 8px;">' + clean(props['m3/anual']) + '</td></tr>\
+                \
+                <!-- SECCIÓN: INGENIERÍA Y EQUIPO -->\
+                <tr><td colspan="2" style="padding: 18px 0 8px 0; color: #2980b9; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #2980b9;">🛠️ Especificaciones Técnicas</td></tr>\
+                <tr><td style="padding: 5px 0;">Tipo de Bomba</td><td style="text-align: right;">' + clean(props['tipo_de_bomba']) + '</td></tr>\
+                <tr><td style="padding: 5px 0; font-weight: bold;">Potencia Instalada</td><td style="text-align: right; color: #d35400;">' + clean(props['potencia_bomba_hp'], 'HP') + '</td></tr>\
+                <tr><td style="padding: 5px 0;">Nivel Estático</td><td style="text-align: right;">' + clean(props['profundidad_nivel_estatico'], 'm') + '</td></tr>\
+                <tr><td style="padding: 5px 0;">Prof. de Bombeo</td><td style="text-align: right;">' + clean(props['profundidad_de_bombeo'], 'm') + '</td></tr>\
+                <tr><td style="padding: 5px 0;">Prof. del Acuífero</td><td style="text-align: right;">' + clean(props['profundidad_de_acuifero'], 'm') + '</td></tr>\
+                <tr><td style="padding: 5px 0;">Diámetro de Ademe</td><td style="text-align: right;">' + clean(props['d_ademe'], 'in') + '</td></tr>\
+                <tr><td style="padding: 5px 0;">Diámetro de Tubería</td><td style="text-align: right;">' + clean(props['d_tuberia'], 'in') + '</td></tr>\
 \
-                <tr><td colspan="2" style="padding: 15px 0 5px 0; color: #2980b9; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #2980b9;">Análisis de Agua</td></tr>\
-                <tr style="background-color: #f9f9f9;"><td style="padding: 7px 8px;"><b>pH</b></td><td style="text-align: right; padding: 7px 8px; font-weight: bold;">' + (feature.properties['ph'] !== null ? feature.properties['ph'] : '-') + '</td></tr>\
-                <tr style="background-color: #e3f2fd;"><td style="padding: 7px 8px;"><b>CE (µS/cm)</b></td><td style="text-align: right; padding: 7px 8px; font-weight: bold;">' + (feature.properties['ce'] !== null ? feature.properties['ce'] : '-') + '</td></tr>\
-                \
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Potasio (K)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['potasio_k'] !== null ? feature.properties['potasio_k'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Sodio (Na)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['sodio_na'] !== null ? feature.properties['sodio_na'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Calcio (Ca)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['calcio_ca'] !== null ? feature.properties['calcio_ca'] : '-') + '</td></tr>\
-                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 8px;">Magnesio (Mg)</td><td style="text-align: right; padding: 6px 8px;">' + (feature.properties['magnesio_mg'] !== null ? feature.properties['magnesio_mg'] : '-') + '</td></tr>\
+                <!-- SECCIÓN: SISTEMA ELÉCTRICO -->\
+                <tr><td colspan="2" style="padding: 18px 0 8px 0; color: #8e44ad; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #8e44ad;">⚡ Parámetros Eléctricos</td></tr>\
+                <tr><td style="padding: 4px 0;">Líneas (1 y 2)</td><td style="text-align: right;">' + clean(props['amperaje_1_2'], 'A') + '</td></tr>\
+                <tr><td style="padding: 4px 0;">Líneas (2 y 3)</td><td style="text-align: right;">' + clean(props['amperaje_2_3'], 'A') + '</td></tr>\
+                <tr><td style="padding: 4px 0;">Líneas (1 y 3)</td><td style="text-align: right;">' + clean(props['amperaje_1_3'], 'A') + '</td></tr>\
+                <tr style="background-color: #f4ecf7;"><td style="padding: 6px 8px; font-weight: bold;">Amperaje Calibrado</td><td style="text-align: right; padding: 6px 8px; font-weight: bold; color: #8e44ad;">' + clean(props['amperaje_calibrado'], 'A') + '</td></tr>\
+\
+                <!-- SECCIÓN: CALIDAD DEL AGUA -->\
+                <tr><td colspan="2" style="padding: 18px 0 8px 0; color: #c0392b; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #c0392b;">🧪 Análisis Físico-Químico</td></tr>\
+                <tr style="background-color: #fffaf9;"><td style="padding: 5px 8px;">pH</td><td style="text-align: right; padding: 5px 8px; font-weight: bold;">' + clean(props['ph']) + '</td></tr>\
+                <tr style="background-color: #fffaf9;"><td style="padding: 5px 8px;">Conductividad (CE)</td><td style="text-align: right; padding: 5px 8px;">' + clean(props['ce'], 'µS/cm') + '</td></tr>\
+                <tr><td style="padding: 4px 0;">Amonio (NO₃)</td><td style="text-align: right;">' + clean(props['amoniaco_no3']) + '</td></tr>\
+                <tr><td style="padding: 4px 0;">Carbonatos (HCO₃)</td><td style="text-align: right;">' + clean(props['bicarbonatos_hco3']) + '</td></tr>\
+                <tr><td style="padding: 4px 0;">Sodio (Na)</td><td style="text-align: right;">' + clean(props['sodio_na']) + '</td></tr>\
             </table>\
         </div>\
-        \
-        <div style="background-color: #2c3e50; color: #ffffff; padding: 6px; font-size: 9px; text-align: center;">\
-            Sincronizado Supabase DB\
-        </div>\
     </div>';
-    layer.bindPopup(popupContent, {maxHeight: 800, maxWidth: 280, minWidth: 280});
-}        
+    layer.bindPopup(popupContent, {maxHeight: 950, maxWidth: 360, minWidth: 360});
+}	  
 
-        function style_pozos_db_1_0() {
+
+     function style_pozos_db_1_0() {
             return {
                 pane: 'pane_pozos_db_1',
                 radius: 8.0,
