@@ -181,8 +181,8 @@ function pop_pozos_db_1(feature, layer) {
                 <tr><td style="padding: 5px 0;">Tipo de Bomba</td><td style="text-align: right;">' + clean(props['tipo_de_bomba']) + '</td></tr>\
                 <tr><td style="padding: 5px 0; font-weight: bold;">Potencia Instalada</td><td style="text-align: right; color: #d35400;">' + clean(props['potencia_bomba_hp'], 'HP') + '</td></tr>\
                 <tr><td style="padding: 5px 0;">Nivel Estático</td><td style="text-align: right;">' + clean(props['profundidad_nivel_estatico'], 'm') + '</td></tr>\
-                <tr><td style="padding: 5px 0;">Prof. de Bombeo</td><td style="text-align: right;">' + clean(props['profundidad_de_bombeo'], 'm') + '</td></tr>\
-                <tr><td style="padding: 5px 0;">Prof. del Acuífero</td><td style="text-align: right;">' + clean(props['profundidad_de_acuifero'], 'm') + '</td></tr>\
+                <tr><td style="padding: 5px 0;">P. de Bombeo</td><td style="text-align: right;">' + clean(props['profundidad_de_bombeo'], 'm') + '</td></tr>\
+                <tr><td style="padding: 5px 0;">P. del Acuífero</td><td style="text-align: right;">' + clean(props['profundidad_de_acuifero'], 'm') + '</td></tr>\
                 <tr><td style="padding: 5px 0;">Diámetro de Ademe</td><td style="text-align: right;">' + clean(props['d_ademe'], 'in') + '</td></tr>\
                 <tr><td style="padding: 5px 0;">Diámetro de Tubería</td><td style="text-align: right;">' + clean(props['d_tuberia'], 'in') + '</td></tr>\
 \
@@ -196,10 +196,10 @@ function pop_pozos_db_1(feature, layer) {
                 <!-- SECCIÓN: CALIDAD DEL AGUA -->\
                 <tr><td colspan="2" style="padding: 18px 0 8px 0; color: #c0392b; font-weight: bold; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #c0392b;">🧪 Análisis Físico-Químico</td></tr>\
                 <tr style="background-color: #fffaf9;"><td style="padding: 5px 8px;">pH</td><td style="text-align: right; padding: 5px 8px; font-weight: bold;">' + clean(props['ph']) + '</td></tr>\
-                <tr style="background-color: #fffaf9;"><td style="padding: 5px 8px;">Conductividad (CE)</td><td style="text-align: right; padding: 5px 8px;">' + clean(props['ce'], 'µS/cm') + '</td></tr>\
-                <tr><td style="padding: 4px 0;">Amonio (NO₃)</td><td style="text-align: right;">' + clean(props['amoniaco_no3']) + '</td></tr>\
-                <tr><td style="padding: 4px 0;">Carbonatos (HCO₃)</td><td style="text-align: right;">' + clean(props['bicarbonatos_hco3']) + '</td></tr>\
-                <tr><td style="padding: 4px 0;">Sodio (Na)</td><td style="text-align: right;">' + clean(props['sodio_na']) + '</td></tr>\
+                <tr style="background-color: #fffaf9;"><td style="padding: 5px 8px;">CE</td><td style="text-align: right; padding: 5px 8px;">' + clean(props['ce'], 'µS/cm') + '</td></tr>\
+                <tr><td style="padding: 4px 0;">NO₃</td><td style="text-align: right;">' + clean(props['amoniaco_no3']) + '</td></tr>\
+                <tr><td style="padding: 4px 0;">HCO₃)</td><td style="text-align: right;">' + clean(props['bicarbonatos_hco3']) + '</td></tr>\
+                <tr><td style="padding: 4px 0;">Na</td><td style="text-align: right;">' + clean(props['sodio_na']) + '</td></tr>\
             </table>\
         </div>\
     </div>';
